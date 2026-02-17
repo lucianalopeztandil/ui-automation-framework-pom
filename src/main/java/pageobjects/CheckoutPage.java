@@ -4,6 +4,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 import pageobjects.AbstractComponents.AbstractComponent;
 
 import java.util.List;
@@ -26,10 +27,13 @@ public class CheckoutPage extends AbstractComponent {
     public void selectCountry(String countryName){
         inputCountry.sendKeys(countryName);
 
+        wait.until(ExpectedConditions.visibilityOfAllElementsLocatedBy(By.cssSelector(".ta-results")));
         countries.stream()
                 .filter(country -> country.getText().equalsIgnoreCase("India"))
                 .findFirst()
-                .ifPresent(WebElement::click);
+                .ifPresent(country -> {
+                    wait.until(ExpectedConditions.elementToBeClickable(country)).click();
+                });
     }
 
     public SucessPage clickSubmit(){
