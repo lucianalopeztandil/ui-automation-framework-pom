@@ -26,10 +26,11 @@ public class LandingPage extends AbstractComponent {
     @FindBy(css=".toast-error")
     WebElement errorMessage;
 
-    public ProductCatalogue loginApplication(String email, String password){
+    public ProductCatalogue loginApplication(String email, String password) throws InterruptedException {
         userEmail.sendKeys(email);
         userPassword.sendKeys(password);
-        wait.until(ExpectedConditions.elementToBeClickable(submitBtn));
+        //wait.until(ExpectedConditions.elementToBeClickable(submitBtn));
+        Thread.sleep(10000);
         submitBtn.click();
         return new ProductCatalogue(driver);
     }
