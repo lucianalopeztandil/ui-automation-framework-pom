@@ -44,7 +44,7 @@ public class AbstractComponent {
     }
 
     public CartPage goToCartPage() throws InterruptedException {
-        //waitForElementToBeClickable(cartBtn);
+        waitForElementToBeClickable(cartBtn);
         Thread.sleep(4000);
         cartHeader.click();
         return new CartPage(driver);
