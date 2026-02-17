@@ -4,6 +4,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 import pageobjects.AbstractComponents.AbstractComponent;
 
 public class LandingPage extends AbstractComponent {
@@ -28,6 +29,7 @@ public class LandingPage extends AbstractComponent {
     public ProductCatalogue loginApplication(String email, String password){
         userEmail.sendKeys(email);
         userPassword.sendKeys(password);
+        wait.until(ExpectedConditions.elementToBeClickable(submitBtn));
         submitBtn.click();
         return new ProductCatalogue(driver);
     }
