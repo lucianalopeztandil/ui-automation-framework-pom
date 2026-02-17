@@ -3,9 +3,7 @@ import data.DataReader;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 import pageobjects.CartPage;
-import pageobjects.CheckoutPage;
 import pageobjects.ProductCatalogue;
-import pageobjects.SucessPage;
 
 import java.io.IOException;
 import java.util.HashMap;
@@ -22,7 +20,7 @@ public class ErrorValidationTest extends BaseTest {
         }
 
     @Test(dataProvider = "getData", dataProviderClass = DataReader.class)
-    public void validationTest(HashMap<String, String> input) throws IOException {
+    public void validationTest(HashMap<String, String> input) throws InterruptedException {
         ProductCatalogue productCatalogue = landingPage
                 .loginApplication(input.get("email"),
                         input.get("password"));
