@@ -23,7 +23,7 @@ public class AbstractComponent {
 
     public AbstractComponent(WebDriver driver){
         this.driver = driver;
-        wait = new WebDriverWait(driver, Duration.ofSeconds(5));
+        wait = new WebDriverWait(driver, Duration.ofSeconds(6));
         PageFactory.initElements(driver, this);
     }
 

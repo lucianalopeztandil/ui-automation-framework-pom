@@ -1,8 +1,11 @@
 package TestComponents;
 
+import io.github.bonigarcia.wdm.WebDriverManager;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.firefox.FirefoxOptions;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import pageobjects.LandingPage;
@@ -11,26 +14,44 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.time.Duration;
 import java.util.Properties;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 public class BaseTest {
 
-        WebDriver driver;
+        protected WebDriver driver;
         protected LandingPage landingPage;
+        private static final Logger logger = LogManager.getLogger(BaseTest.class);
 
-        public WebDriver setup() throws IOException {
 
+      public WebDriver setup() throws IOException {
+
+        logger.info("Se comienza con el setup de la aplicacion");
         Properties prop = new Properties();
         FileInputStream fis = new FileInputStream(System.getProperty("user.dir") + "//src//main//resources//GlobalData.properties");
         prop.load(fis);
 
         String browserName = prop.getProperty("browser");
+        logger.info("El navegador en que se ejecutara la prueba es: " + browserName);
 
-        if (browserName.equalsIgnoreCase("chrome")){
-            driver = new ChromeDriver();
-        }
-        else{
-            driver = new FirefoxDriver();
-        }
+          if (browserName.equalsIgnoreCase("chrome")) {
+
+              ChromeOptions options = new ChromeOptions();
+              options.addArguments("--headless=new");
+              options.addArguments("--no-sandbox");
+              options.addArguments("--disable-dev-shm-usage");
+              WebDriverManager.chromedriver().setup();
+
+              driver = new ChromeDriver(options);
+
+          } else if (browserName.equalsIgnoreCase("firefox")) {
+
+              FirefoxOptions options = new FirefoxOptions();
+              options.addArguments("-headless");
+              WebDriverManager.firefoxdriver().setup();
+
+              driver = new FirefoxDriver(options);
+          }
         driver.manage().window().maximize();
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(4));
         return driver;
@@ -40,16 +61,16 @@ public class BaseTest {
     public LandingPage launchApplication() throws IOException {
             driver = setup();
             landingPage = new LandingPage(driver);
+            logger.info("Se carga la url");
             landingPage.goTo();
             return landingPage;
     }
 
     @AfterMethod
     public void tearDown(){
-        System.out.println("Closing driver...");
+        logger.info("Closing driver...");
         driver.quit();
-        System.out.println("Driver closed.");
-
+        logger.info("Driver closed.");
     }
 
 }

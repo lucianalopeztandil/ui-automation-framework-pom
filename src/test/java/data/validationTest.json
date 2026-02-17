@@ -1,0 +1,15 @@
+[
+  {
+    "email": "marcelodlopeztandil7@gmail.com",
+    "password": "Password2431",
+    "product": "ZARA COAT 3",
+    "wrong_product": "ADIDAS ORIGINAL"
+  },
+  {
+    "email": "marcelodlopeztandil7@gmail.com",
+    "password": "Password2431",
+    "product": "IPHONE 13 PRO",
+    "wrong_product": "ZARA COAT 3"
+  }
+
+]

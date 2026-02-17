@@ -1,25 +1,26 @@
 import TestComponents.BaseTest;
+import data.DataReader;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 import pageobjects.*;
 
 import java.io.IOException;
+import java.util.HashMap;
 
 
 public class StandAloneTest extends BaseTest {
 
 
-        @Test
-        public void ecommerceTest() throws IOException {
-            String productName = "ZARA COAT 3";
+        @Test(dataProvider = "getData", dataProviderClass = DataReader.class)
+        public void purchaseOrderTest(HashMap<String, String> input) throws IOException {
             ProductCatalogue productCatalogue = landingPage
-                                                 .loginApplication("your_email_here",
-                                                         "your_password_here");
+                                                 .loginApplication(input.get("email"),
+                                                         input.get("password"));
 
-            productCatalogue.addProductToCart(productName);
+            productCatalogue.addProductToCart(input.get("product"));
             CartPage cartPage = productCatalogue.goToCartPage();
 
-            boolean match = cartPage.verifyDisplayedProduct(productName);
+            boolean match = cartPage.verifyDisplayedProduct(input.get("product"));
             Assert.assertTrue(match);
             CheckoutPage checkoutPage = cartPage.goToCheckout();
             checkoutPage.selectCountry("Ind");
