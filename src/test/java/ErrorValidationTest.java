@@ -12,7 +12,7 @@ public class ErrorValidationTest extends BaseTest {
 
 
     @Test(dataProvider = "getData", dataProviderClass = DataReader.class)
-        public void loginTest(HashMap<String, String> input) throws InterruptedException {
+        public void loginTest(HashMap<String, String> input) {
             landingPage.loginApplication(input.get("email"),
                     input.get("password"));
             Assert.assertEquals(landingPage.getErrorMessage(), "Incorrect email or password.");

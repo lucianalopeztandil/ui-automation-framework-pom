@@ -1,5 +1,6 @@
 package pageobjects;
 
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -26,11 +27,12 @@ public class LandingPage extends AbstractComponent {
     @FindBy(css=".toast-error")
     WebElement errorMessage;
 
-    public ProductCatalogue loginApplication(String email, String password) throws InterruptedException {
+    public ProductCatalogue loginApplication(String email, String password) {
         userEmail.sendKeys(email);
         userPassword.sendKeys(password);
-        //wait.until(ExpectedConditions.elementToBeClickable(submitBtn));
-        Thread.sleep(10000);
+        wait.until(ExpectedConditions.elementToBeClickable(submitBtn));
+        ((JavascriptExecutor) driver)
+                .executeScript("arguments[0].click();", submitBtn);
         submitBtn.click();
         return new ProductCatalogue(driver);
     }

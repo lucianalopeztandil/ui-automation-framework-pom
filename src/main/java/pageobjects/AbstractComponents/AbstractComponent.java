@@ -43,8 +43,9 @@ public class AbstractComponent {
         wait.until(ExpectedConditions.visibilityOf(findBy));
     }
 
-    public CartPage goToCartPage() {
-        waitForElementToBeClickable(cartBtn);
+    public CartPage goToCartPage() throws InterruptedException {
+        //waitForElementToBeClickable(cartBtn);
+        Thread.sleep(4000);
         cartHeader.click();
         return new CartPage(driver);
     }
