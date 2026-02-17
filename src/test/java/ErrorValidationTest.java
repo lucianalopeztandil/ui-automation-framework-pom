@@ -5,7 +5,6 @@ import org.testng.annotations.Test;
 import pageobjects.CartPage;
 import pageobjects.ProductCatalogue;
 
-import java.io.IOException;
 import java.util.HashMap;
 
 
@@ -13,7 +12,7 @@ public class ErrorValidationTest extends BaseTest {
 
 
     @Test(dataProvider = "getData", dataProviderClass = DataReader.class)
-        public void loginTest(HashMap<String, String> input) throws IOException {
+        public void loginTest(HashMap<String, String> input) throws InterruptedException {
             landingPage.loginApplication(input.get("email"),
                     input.get("password"));
             Assert.assertEquals(landingPage.getErrorMessage(), "Incorrect email or password.");
