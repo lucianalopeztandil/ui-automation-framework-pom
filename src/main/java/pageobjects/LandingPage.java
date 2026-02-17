@@ -1,6 +1,7 @@
 package pageobjects;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -32,12 +33,15 @@ public class LandingPage extends AbstractComponent {
         userPassword.sendKeys(password);
 
         By loginButton = By.id("login");
-
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(15));
-        WebElement freshLoginBtn = wait.until(
-                ExpectedConditions.elementToBeClickable(loginButton)
-        );
-        freshLoginBtn.click();
+        WebElement freshLoginBtn = wait.until(ExpectedConditions.presenceOfElementLocated(loginButton));
+
+        try {
+            freshLoginBtn.click();
+        } catch (Exception e) {
+            JavascriptExecutor js = (JavascriptExecutor) driver;
+            js.executeScript("arguments[0].click();", freshLoginBtn);
+        }
 
         return new ProductCatalogue(driver);
     }
