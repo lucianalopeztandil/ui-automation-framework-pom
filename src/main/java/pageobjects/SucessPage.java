@@ -11,11 +11,14 @@ public class SucessPage extends AbstractComponent {
     @FindBy(css = ".hero-primary")
     WebElement msg;
 
+    By sucessMessage = By.cssSelector(".hero-primary");
+
     public SucessPage(WebDriver driver){
         super(driver);
     }
 
     public void printMessage(){
+        waitForElementToAppear(sucessMessage);
         System.out.println(msg.getText());
 
     }
