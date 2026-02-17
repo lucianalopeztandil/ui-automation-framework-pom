@@ -21,7 +21,6 @@ public class AbstractComponent {
     WebElement cartHeader;
 
     By cartBtn = By.cssSelector("button[routerlink*='cart']");
-    By animation = By.cssSelector(".ngx-spinner-overlay");
 
 
     public AbstractComponent(WebDriver driver){
@@ -47,19 +46,15 @@ public class AbstractComponent {
     }
 
     public CartPage goToCartPage() throws InterruptedException {
-        Thread.sleep(4000);
-        wait.until(driver ->
-                ((JavascriptExecutor) driver)
-                        .executeScript("return document.readyState")
-                        .equals("complete")
-        );
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(15));
+        WebElement freshCartBtn = wait.until(ExpectedConditions.presenceOfElementLocated(cartBtn));
 
-        WebElement cart = wait.until(
-                ExpectedConditions.visibilityOfElementLocated(cartBtn)
-        );
-
-        cart.click();
-
+        try {
+            freshCartBtn.click();
+        } catch (Exception e) {
+            JavascriptExecutor js = (JavascriptExecutor) driver;
+            js.executeScript("arguments[0].click();", freshCartBtn);
+        }
         return new CartPage(driver);
     }
 
