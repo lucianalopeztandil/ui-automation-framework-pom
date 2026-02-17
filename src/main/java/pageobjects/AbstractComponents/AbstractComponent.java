@@ -23,7 +23,7 @@ public class AbstractComponent {
 
     public AbstractComponent(WebDriver driver){
         this.driver = driver;
-        wait = new WebDriverWait(driver, Duration.ofSeconds(6));
+        wait = new WebDriverWait(driver, Duration.ofSeconds(10));
         PageFactory.initElements(driver, this);
     }
 
@@ -43,9 +43,8 @@ public class AbstractComponent {
         wait.until(ExpectedConditions.visibilityOf(findBy));
     }
 
-    public CartPage goToCartPage() throws InterruptedException {
-        //waitForElementToBeClickable(cartBtn); An error was detected in the app and it was reported
-        Thread.sleep(4000);
+    public CartPage goToCartPage() {
+        waitForElementToBeClickable(cartBtn);
         cartHeader.click();
         return new CartPage(driver);
     }
