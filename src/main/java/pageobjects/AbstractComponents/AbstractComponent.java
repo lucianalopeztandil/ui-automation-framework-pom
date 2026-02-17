@@ -1,6 +1,7 @@
 package pageobjects.AbstractComponents;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -20,6 +21,8 @@ public class AbstractComponent {
     WebElement cartHeader;
 
     By cartBtn = By.cssSelector("button[routerlink*='cart']");
+    By animation = By.cssSelector(".ngx-spinner-overlay");
+
 
     public AbstractComponent(WebDriver driver){
         this.driver = driver;
@@ -44,9 +47,20 @@ public class AbstractComponent {
     }
 
     public CartPage goToCartPage() throws InterruptedException {
-        waitForElementToBeClickable(cartBtn);
         Thread.sleep(4000);
-        cartHeader.click();
+        wait.until(driver ->
+                ((JavascriptExecutor) driver)
+                        .executeScript("return document.readyState")
+                        .equals("complete")
+        );
+
+        WebElement cart = wait.until(
+                ExpectedConditions.visibilityOfElementLocated(cartBtn)
+        );
+
+        cart.click();
+
         return new CartPage(driver);
     }
+
 }
