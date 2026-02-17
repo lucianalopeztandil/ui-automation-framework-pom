@@ -1,4 +1,4 @@
-name: Selenium CI V2
+name: Selenium CI V3
 
 on:
   workflow_dispatch:
