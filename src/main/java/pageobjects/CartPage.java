@@ -13,9 +13,6 @@ import java.time.Duration;
 
 public class CartPage extends AbstractComponent {
 
-    @FindBy(xpath = "//button[text()='Checkout']")
-    WebElement checkoutBtn;
-
     By checkout = By.xpath("//button[text()='Checkout']");
 
     @FindBy(css = ".cartSection h3")
