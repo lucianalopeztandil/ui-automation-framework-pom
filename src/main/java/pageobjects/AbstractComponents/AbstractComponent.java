@@ -58,4 +58,14 @@ public class AbstractComponent {
         return new CartPage(driver);
     }
 
+    public void clickOption(By submitAction){
+        WebElement freshSubmitBtn = wait.until(ExpectedConditions.presenceOfElementLocated(submitAction));
+        try {
+            freshSubmitBtn.click();
+        } catch (Exception e) {
+            JavascriptExecutor js = (JavascriptExecutor) driver;
+            js.executeScript("arguments[0].click();", freshSubmitBtn);
+        }
+    }
+
 }

@@ -6,10 +6,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
 import pageobjects.AbstractComponents.AbstractComponent;
-
-import java.time.Duration;
 import java.util.List;
 
 public class CheckoutPage extends AbstractComponent {
@@ -29,7 +26,6 @@ public class CheckoutPage extends AbstractComponent {
     public void selectCountry(String countryName){
         inputCountry.sendKeys(countryName);
 
-        //wait.until(ExpectedConditions.visibilityOfAllElementsLocatedBy(By.cssSelector(".ta-results")));
         wait.until(ExpectedConditions.visibilityOfAllElements(countries));
 
         WebElement target = countries.stream()
@@ -48,14 +44,7 @@ public class CheckoutPage extends AbstractComponent {
     }
 
     public SucessPage clickSubmit(){
-        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(15));
-        WebElement freshSubmitBtn = wait.until(ExpectedConditions.presenceOfElementLocated(submitAction));
-        try {
-            freshSubmitBtn.click();
-        } catch (Exception e) {
-            JavascriptExecutor js = (JavascriptExecutor) driver;
-            js.executeScript("arguments[0].click();", freshSubmitBtn);
-        }
+        clickOption(submitAction);
         return new SucessPage(driver);
     }
 }
