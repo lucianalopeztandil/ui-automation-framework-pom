@@ -15,13 +15,13 @@ public class LandingPage extends AbstractComponent {
     }
 
     @FindBy(id="userEmail")
-    WebElement userEmail;
+    private WebElement userEmail;
 
     @FindBy(id="userPassword")
-    WebElement userPassword;
+    private WebElement userPassword;
 
     @FindBy(css=".toast-error")
-    WebElement errorMessage;
+    private WebElement errorMessage;
 
     public ProductCatalogue loginApplication(String email, String password) {
         userEmail.sendKeys(email);

@@ -17,13 +17,13 @@ public class ProductCatalogue extends AbstractComponent {
     }
 
     @FindBy(css=".mb-3")
-    List<WebElement> products;
+    private List<WebElement> products;
 
-    By productsSelector = By.cssSelector(".mb-3");
-    By addToCart = By.cssSelector(".card-body button:last-of-type");
-    By productName = By.cssSelector("div h5");
-    By toastMessage = By.id("toast-container");
-    By animation = By.cssSelector(".ng-animating");
+    private By productsSelector = By.cssSelector(".mb-3");
+    private By addToCart = By.cssSelector(".card-body button:last-of-type");
+    private By productName = By.cssSelector("div h5");
+    private By toastMessage = By.id("toast-container");
+    private By animation = By.cssSelector(".ng-animating");
 
     public List<WebElement> getProductList(){
         waitForElementToAppear(productsSelector);

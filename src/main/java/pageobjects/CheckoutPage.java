@@ -12,12 +12,12 @@ import java.util.List;
 public class CheckoutPage extends AbstractComponent {
 
     @FindBy(xpath = "//input[@placeholder = 'Select Country']")
-    WebElement inputCountry;
+    private WebElement inputCountry;
 
     @FindBy(css = ".ta-item")
-    List<WebElement> countries;
+    private List<WebElement> countries;
 
-    By submitAction = By.cssSelector(".action__submit");
+    private By submitAction = By.cssSelector(".action__submit");
 
     public CheckoutPage(WebDriver driver){
         super(driver);
@@ -26,6 +26,9 @@ public class CheckoutPage extends AbstractComponent {
     public void selectCountry(String countryName){
         inputCountry.sendKeys(countryName);
 
+        wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector(".ta-results")));
+        By botonesSelector = By.cssSelector(".ta-results button");
+        wait.until(ExpectedConditions.numberOfElementsToBeMoreThan(botonesSelector, 0));
         wait.until(ExpectedConditions.visibilityOfAllElements(countries));
 
         WebElement target = countries.stream()

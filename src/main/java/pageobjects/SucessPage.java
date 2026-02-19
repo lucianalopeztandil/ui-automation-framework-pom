@@ -9,9 +9,9 @@ import pageobjects.AbstractComponents.AbstractComponent;
 public class SucessPage extends AbstractComponent {
 
     @FindBy(css = ".hero-primary")
-    WebElement msg;
+    private WebElement msg;
 
-    By sucessMessage = By.cssSelector(".hero-primary");
+    private By sucessMessage = By.cssSelector(".hero-primary");
 
     public SucessPage(WebDriver driver){
         super(driver);

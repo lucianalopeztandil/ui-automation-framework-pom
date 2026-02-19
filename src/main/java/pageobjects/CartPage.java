@@ -8,10 +8,10 @@ import pageobjects.AbstractComponents.AbstractComponent;
 
 public class CartPage extends AbstractComponent {
 
-    By checkout = By.xpath("//button[text()='Checkout']");
+    private By checkout = By.xpath("//button[text()='Checkout']");
 
     @FindBy(css = ".cartSection h3")
-    WebElement selectedProduct;
+    private WebElement selectedProduct;
 
     public CartPage(WebDriver driver){
         super(driver);
